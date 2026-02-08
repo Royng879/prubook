@@ -3,138 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>自在退休方案</title>
+    <title>PRUElite Flex 退休與傳承方案</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+HK:wght@700&family=Noto+Sans+HK:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* 離線優化：使用系統自帶字體，無需聯網加載 Google Fonts */
+        /* 手機優先布局 */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { 
             background-color: #0c1c2c; 
             margin: 0; 
             padding: 0; 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Microsoft JhengHei", sans-serif;
+            font-family: 'Noto Sans HK', sans-serif;
             color: #333;
-            line-height: 1.5;
         }
 
-        .container {
-            max-width: 500px;
+        .scroll-container {
+            max-width: 500px; /* 模擬手機寬度 */
             margin: 0 auto;
             background-color: #fdfaf5;
+            overflow-x: hidden;
         }
 
+        /* 每一「頁」的樣式，改為垂直長塊 */
         section {
-            padding: 50px 25px;
+            padding: 60px 30px;
+            position: relative;
             border-bottom: 1px solid rgba(197, 160, 89, 0.2);
         }
 
-        /* 封面 */
+        /* 封面樣式 */
         .cover {
-            height: 90vh;
-            background-color: #002147;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+            background: linear-gradient(rgba(0, 33, 71, 0.8), rgba(0, 33, 71, 0.8)), 
+                        url('https://images.unsplash.com/photo-1544333346-64e4fe18204b?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
             color: #c5a059;
-            padding: 30px;
+            padding: 40px;
         }
 
-        .cover h1 { font-size: 38px; margin: 0; letter-spacing: 1px; }
-        .cover p { color: #fff; font-size: 18px; margin-top: 15px; }
-        .divider { width: 50px; height: 3px; background: #c5a059; margin: 25px 0; }
+        .cover h1 {
+            font-family: 'Noto Serif HK', serif;
+            font-size: 42px;
+            margin: 0;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
 
-        /* 內容樣式 */
-        h2 { font-size: 28px; color: #002147; border-left: 5px solid #c5a059; padding-left: 15px; margin-bottom: 25px; }
-        .card { background: #fff; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-bottom: 3px solid #c5a059; }
-        .badge { display: inline-block; background: #c5a059; color: #fff; padding: 4px 12px; border-radius: 4px; font-weight: bold; margin-bottom: 10px; font-size: 14px; }
-        
-        ul { padding-left: 20px; }
-        li { margin-bottom: 12px; font-size: 17px; }
+        .cover p {
+            color: #fff;
+            font-size: 18px;
+            margin-top: 20px;
+            font-weight: 300;
+        }
 
-        /* 對比框 */
-        .compare { padding: 15px; border-radius: 10px; margin-bottom: 10px; }
-        .old { background: #eee; color: #777; }
-        .new { background: #002147; color: #c5a059; border: 1px solid #c5a059; }
+        .gold-divider {
+            width: 60px;
+            height: 4px;
+            background: #c5a059;
+            margin: 30px 0;
+        }
 
-        .cta {
+        /* 標題樣式 */
+        h2.section-title {
+            font-family: 'Noto Serif HK', serif;
+            font-size: 32px;
+            color: #002147;
+            margin-bottom: 30px;
+            line-height: 1.3;
+            border-left: 6px solid #c5a059;
+            padding-left: 15px;
+        }
+
+        h3 { color: #002147; font-size: 24px; margin-top: 0; }
+
+        /* 圖片容器 */
+        .img-box {
+            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border: 1px solid #c5a059;
+        }
+        .img-box img { width: 100%; display: block; }
+
+        /* 卡片樣式 */
+        .card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-bottom: 4px solid #c5a059;
+        }
+
+        .card .icon {
+            font-size: 40px;
+            color: #c5a059;
+            margin-bottom: 20px;
+        }
+
+        /* 清單樣式 */
+        ul { padding-left: 20px; margin: 0; }
+        li { margin-bottom: 15px; font-size: 18px; line-height: 1.6; color: #444; }
+
+        /* 對比卡片 (手機垂直對比) */
+        .compare-box { margin-top: 20px; }
+        .compare-item {
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+        .compare-old { background: #eee; color: #777; }
+        .compare-new { background: #002147; color: #c5a059; border: 1px solid #c5a059; }
+
+        /* 核心賣點 F L E X */
+        .flex-badge {
+            display: inline-block;
+            background: #c5a059;
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* 行動按鈕 */
+        .cta-btn {
             display: block;
             background: #c5a059;
             color: #fff;
             text-align: center;
-            padding: 18px;
+            padding: 20px;
             border-radius: 50px;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
-            margin-top: 30px;
+            margin-top: 40px;
+            box-shadow: 0 10px 20px rgba(197, 160, 89, 0.3);
         }
 
-        footer { background: #002147; color: #fff; padding: 40px 25px; text-align: center; font-size: 14px; }
+        /* 強調大字 */
+        .big-num { font-size: 60px; font-weight: 700; color: #c5a059; display: block; }
+
+        /* 頁尾 */
+        footer {
+            background: #002147;
+            padding: 40px 30px;
+            text-align: center;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <section class="cover">
-        <h1>自在退休<br>愛在傳承</h1>
-        <div class="divider"></div>
-        <p>55歲後理財新哲學<br>打造領到100歲的「固定薪水」</p>
-    </section>
+    <div class="scroll-container">
+        
+        <!-- Page 1: Cover -->
+        <section class="cover">
+            <h1>自在退休<br>愛在傳承</h1>
+            <div class="gold-divider"></div>
+            <p>55歲後理財重心：<br>追求穩定的現金流，而非波動的市場</p>
+            <div style="margin-top: 40px; font-size: 24px;">
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </section>
 
-    <section>
-        <h2>退休後的三大重點</h2>
-        <div class="card">
-            <ul>
-                <li><strong>穩：</strong> 每月有穩定現金流</li>
-                <li><strong>安：</strong> 醫療與突發開支有依靠</li>
-                <li><strong>簡：</strong> 手續簡單，不給子女添麻煩</li>
-            </ul>
-        </div>
-    </section>
+        <!-- Page 2: Pain Points -->
+        <section>
+            <h2 class="section-title">55歲之後<br>最重要的三件事</h2>
+            <div class="card">
+                <p>真正關心的不再是高回報，而是：</p>
+                <ul style="margin-top: 20px;">
+                    <li><strong>穩：</strong> 退休後有沒有穩定現金流？</li>
+                    <li><strong>安：</strong> 萬一有事，家人會否手忙腳亂？</li>
+                    <li><strong>簡：</strong> 不想天天盯着市場，不想成為負擔。</li>
+                </ul>
+            </div>
+            <div class="img-box">
+                <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=800&auto=format&fit=crop" alt="Peaceful Retirement">
+            </div>
+        </section>
 
-    <section>
-        <div class="badge">F | FlexIncome</div>
-        <h2>退休後的固定薪水</h2>
-        <div class="card">
-            <p><strong>保證領到100歲</strong></p>
-            <p>每年固定領取保證收入，像發薪水一樣準時，讓晚年生活更有底氣。</p>
-        </div>
-    </section>
+        <!-- Page 3: FlexIncome -->
+        <section>
+            <div class="flex-badge">F | FlexIncome</div>
+            <h2 class="section-title">退休後的「固定薪水」</h2>
+            <p style="margin-bottom: 30px;">存款會領完，但生活費不會停。</p>
+            
+            <div class="card">
+                <div class="icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                <h3>保證收入領到 100 歲</h3>
+                <p>每年可領取一筆<strong>保證收入</strong>，用來補貼生活、醫療或旅行，活得有節奏、有底氣。</p>
+            </div>
+            <div class="card">
+                <div class="icon"><i class="fa-solid fa-piggy-bank"></i></div>
+                <h3>靈活選擇</h3>
+                <p>現在用，或者先存起來。您的資金，您做主。</p>
+            </div>
+        </section>
 
-    <section>
-        <div class="badge">L | Legacy</div>
-        <h2>資產傳承，有序分配</h2>
-        <div class="card">
-            <p>一張保單可靈活拆分給子女或孫輩，免去複雜遺產手續，避免家庭糾紛。</p>
-        </div>
-    </section>
+        <!-- Page 4: Legacy -->
+        <section>
+            <div class="flex-badge" style="background: #002147;">L | Legacy</div>
+            <h2 class="section-title">留給孩子秩序<br>而非麻煩</h2>
+            <div class="img-box">
+                <img src="https://images.unsplash.com/photo-1554224155-1696413565d3?q=80&w=800&auto=format&fit=crop" alt="Legacy Wealth">
+            </div>
+            <div class="card">
+                <h3>一張保單，精準分配</h3>
+                <p>保費繳清後，您可以根據意願將保單拆分給子女或孫輩。清晰分配，避免日後紛爭。</p>
+                <ul style="margin-top: 15px;">
+                    <li>免去複雜遺產手續</li>
+                    <li>把愛，安排得明明白白</li>
+                </ul>
+            </div>
+        </section>
 
-    <section>
-        <div class="badge">E | Easy</div>
-        <h2>綠色通道，輕鬆投保</h2>
-        <div class="card">
-            <p><strong>無需體檢、無需回答健康問題。</strong> 對於55歲以上的長輩，這是最尊嚴、最簡單的規劃方式。</p>
-        </div>
-    </section>
+        <!-- Page 5: Easy (Green Lane) -->
+        <section style="background: #f0f4f8;">
+            <div class="flex-badge">E | Easy</div>
+            <h2 class="section-title">過程簡單，不折騰</h2>
+            <p>這階段最怕複雜的手續。</p>
+            <div class="card" style="border-left: 10px solid #28a745;">
+                <h3 style="color: #28a745;"><i class="fa-solid fa-leaf"></i> 綠色通道 (Green Lane)</h3>
+                <ul style="margin-top: 15px;">
+                    <li><strong>無需體檢</strong></li>
+                    <li><strong>無需回答健康問題</strong></li>
+                    <li><strong>無需複雜財務證明</strong></li>
+                </ul>
+            </div>
+            <p style="text-align: center; font-style: italic;">「輕鬆開始，比追求完美更重要。」</p>
+        </section>
 
-    <section>
-        <h2>為什麼選擇此方案？</h2>
-        <div class="compare old">
-            <strong>傳統房地產投資：</strong><br>
-            需找租客、付維修費、印花稅高。
-        </div>
-        <div class="compare new">
-            <strong>PRUElite Flex：</strong><br>
-            零管理負擔，穩定的保證現金流。
-        </div>
-    </section>
+        <!-- Page 6: Comparison Real Estate -->
+        <section>
+            <h2 class="section-title">對比：房地產投資</h2>
+            <div class="compare-box">
+                <div class="compare-item compare-old">
+                    <h4>房地產 (傳統方式)</h4>
+                    <p><i class="fa-solid fa-xmark"></i> 需找租戶、維修成本高</p>
+                    <p><i class="fa-solid fa-xmark"></i> 租金收入可能中斷/延遲</p>
+                </div>
+                <div style="text-align: center; margin: 10px 0; font-weight: bold; color: #c5a059;">VS</div>
+                <div class="compare-item compare-new">
+                    <h4>PRUElite Flex</h4>
+                    <p><i class="fa-solid fa-check"></i> 零管理壓力，自動收益</p>
+                    <p><i class="fa-solid fa-check"></i> 穩定現金流，定期支付</p>
+                </div>
+            </div>
+        </section>
 
-    <footer>
-        <p>退休後的每一分錢，都值得被好好照顧。</p>
-        <a href="#" class="cta">預約諮詢您的專屬方案</a>
-        <p style="margin-top: 20px; opacity: 0.6;">* 此為長期規劃方案，利益以正式保單為準。</p>
-    </footer>
-</div>
+        <!-- Page 7: Comparison Trust -->
+        <section>
+            <h2 class="section-title">傳承：信托 vs 拆分</h2>
+            <div class="compare-box">
+                <div class="compare-item compare-old">
+                    <h4>生前信托 (Living Trust)</h4>
+                    <p><i class="fa-solid fa-xmark"></i> 信托設立費、年度管理費</p>
+                    <p><i class="fa-solid fa-xmark"></i> 權益更改受限，程序複雜</p>
+                </div>
+                <div style="text-align: center; margin: 10px 0; font-weight: bold; color: #c5a059;">VS</div>
+                <div class="compare-item compare-new">
+                    <h4>保單拆分 (Policy Split)</h4>
+                    <p><i class="fa-solid fa-check"></i> 僅需支付印花稅，成本極低</p>
+                    <p><i class="fa-solid fa-check"></i> 隨時靈活更改受益分配</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 8: Security -->
+        <section style="text-align: center;">
+            <h2 class="section-title" style="text-align: left;">萬一有事，如何交代？</h2>
+            <div class="card">
+                <i class="fa-solid fa-shield-heart" style="font-size: 80px; color: #c5a059; margin-bottom: 20px;"></i>
+                <h3>雙重安心保障</h3>
+                <p><strong>平安到期：</strong><br>保證利益 + 潛在分紅增值</p>
+                <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+                <p><strong>期滿前離世：</strong><br>支付已繳保費總額給家人</p>
+            </div>
+            <p>「這不是悲觀，而是負責任。」</p>
+        </section>
+
+        <!-- Page 9: CTA -->
+        <footer>
+            <h2>清楚了解 · 真正安心</h2>
+            <p>退休後的每一分錢，都值得被好好規劃。</p>
+            <a href="javascript:void(0);" class="cta-btn">
+                <i class="fa-brands fa-whatsapp"></i> 諮詢您的退休方案
+            </a>
+            <p style="margin-top: 30px; font-size: 14px; opacity: 0.6;">
+                * 重要提醒：這是長期規劃方案。所有利益以正式保單條款為準。
+            </p>
+        </footer>
+
+    </div>
 
 </body>
 </html>
